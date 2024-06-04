@@ -1,0 +1,33 @@
+﻿/*@!Encoding:65001*/
+includes
+{
+  
+}
+
+variables
+{
+  msTimer sendTimer;
+  const int timePeriod = 1000;
+  message ACC_CMD_MSG AccCMD;
+  int Acc_Variable = 0;
+  
+}
+
+on start {
+  write("Muhammad Atta: Vector CANoe Case Study");
+  setTimer(sendTimer, timePeriod);
+}
+
+on message Speed_Val_MSG {
+  write("ECU1 receives from ECU2");
+}
+
+on timer sendTimer {
+  write("Muhammad Atta: Vector CANoe Case Study");
+  //Acc_Variable ^= 1;
+  Acc_Variable = @sysvar::ACC_System_Value;
+  AccCMD.ACC_Mode.phys = Acc_Variable;
+  output(AccCMD);
+  setTimer(sendTimer, timePeriod);
+}
+
